@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Difendi i tuoi amici – La Costituzione italiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg1:#e8f0ff; --bg2:#fff1e0;
+  --card:#ffffff; --card2:#f4f7fc; --ink:#0f1b33; --muted:#4a5a78; --line:#d3dcee;
+  --brand:#1d4ed8; --brand-ink:#ffffff; --brand-soft:#e3ecff;
+  --ok:#15803d; --ok-bg:#dcfce7; --ok-ink:#14532d;
+  --bad:#b91c1c; --bad-bg:#fee2e2; --bad-ink:#7f1d1d;
+  --hint-bg:#fef3c7; --hint-ink:#78350f;
+  --shadow:0 20px 50px rgba(20,40,90,.16);
+  --scale:1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg1:#0a1224; --bg2:#1a1030;
+    --card:#121b30; --card2:#19243d; --ink:#e9eefc; --muted:#a9b6d3; --line:#2a3a5c;
+    --brand:#7aa5ff; --brand-ink:#08122b; --brand-soft:#1b2c55;
+    --ok:#4ade80; --ok-bg:#12351f; --ok-ink:#c9f7d8;
+    --bad:#f87171; --bad-bg:#3b1517; --bad-ink:#ffd4d4;
+    --hint-bg:#3a2d0b; --hint-ink:#fde9a8;
+    --shadow:0 20px 50px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg1:#0a1224; --bg2:#1a1030;
+  --card:#121b30; --card2:#19243d; --ink:#e9eefc; --muted:#a9b6d3; --line:#2a3a5c;
+  --brand:#7aa5ff; --brand-ink:#08122b; --brand-soft:#1b2c55;
+  --ok:#4ade80; --ok-bg:#12351f; --ok-ink:#c9f7d8;
+  --bad:#f87171; --bad-bg:#3b1517; --bad-ink:#ffd4d4;
+  --hint-bg:#3a2d0b; --hint-ink:#fde9a8;
+  --shadow:0 20px 50px rgba(0,0,0,.5);
+  color-scheme: dark;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); font-size: calc(100% * var(--scale)); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Lexend', 'Atkinson Hyperlegible', 'Segoe UI', system-ui, -apple-system, Verdana, sans-serif;
+  background-color: var(--bg1);
+  background-image: radial-gradient(circle at 12% 8%, rgba(0,146,70,.14), transparent 38%),
+                    radial-gradient(circle at 92% 12%, rgba(206,43,55,.12), transparent 36%),
+                    linear-gradient(160deg, var(--bg1), var(--bg2));
+  background-attachment: fixed;
+  color: var(--ink);
+  line-height: 1.65;
+  letter-spacing: .01em;
+  word-spacing: .06em;
+  -webkit-text-size-adjust: 100%;
+}
+.app { min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 1rem; }
+.card {
+  position: relative; width: 100%; max-width: 720px; margin: .5rem auto 1.5rem;
+  background: var(--card); border-radius: 28px; box-shadow: var(--shadow);
+  padding: 1.25rem 1.25rem 1.75rem; overflow: hidden; border: 1px solid var(--line);
+}
+.stripe { display: flex; height: 8px; margin: -1.25rem -1.25rem 1rem; }
+.stripe i { flex: 1; }
+.stripe i:nth-child(1) { background: #009246; }
+.stripe i:nth-child(2) { background: #f4f5f0; }
+.stripe i:nth-child(3) { background: #ce2b37; }
+
+/* barra aiuti */
+.toolbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.tb-group { display: flex; gap: .4rem; }
+.chip {
+  font: inherit; font-size: .8rem; font-weight: 500; color: var(--ink);
+  min-height: 44px; padding: .35rem .85rem; border-radius: 999px; cursor: pointer;
+  background: var(--card2); border: 2px solid var(--line); transition: transform .15s, background .15s;
+}
+.chip:hover { transform: translateY(-1px); }
+.chip[aria-pressed="true"] { background: var(--brand-soft); border-color: var(--brand); }
+.chip[aria-pressed="true"]::after { content: " ✓"; font-weight: 700; color: var(--brand); }
+.chip[aria-pressed="false"]::after { content: " ✕"; color: var(--muted); }
+.note {
+  background: var(--hint-bg); color: var(--hint-ink); border-radius: 14px;
+  padding: .75rem 1rem; margin-bottom: 1rem; font-size: .9rem;
+}
+
+/* testi */
+h1 { font-size: 2rem; line-height: 1.2; margin: .4rem 0 .6rem; text-align: center; }
+h2 { font-size: 1.35rem; line-height: 1.3; margin: 0; }
+h3.question { font-size: 1.15rem; margin: 1.25rem 0 .6rem; }
+.lead { text-align: center; color: var(--muted); font-size: 1.1rem; max-width: 34ch; margin: 0 auto 1rem; }
+:focus-visible { outline: 4px solid var(--brand); outline-offset: 3px; border-radius: 10px; }
+
+/* bottoni */
+.btn-primary {
+  font: inherit; font-weight: 600; font-size: 1.1rem; width: 100%; min-height: 58px;
+  background: var(--brand); color: var(--brand-ink); border: none; border-radius: 18px;
+  padding: .9rem 1.2rem; cursor: pointer; box-shadow: 0 5px 0 rgba(0,0,0,.22);
+  transition: transform .1s, box-shadow .1s, filter .15s;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-primary:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(0,0,0,.22); }
+.btn-ghost {
+  font: inherit; font-weight: 500; font-size: .95rem; color: var(--ink); cursor: pointer;
+  min-height: 48px; padding: .5rem 1rem; border-radius: 14px;
+  background: var(--card2); border: 2px solid var(--line);
+}
+.btn-ghost:hover { border-color: var(--brand); }
+.btn-ghost.playing, .icon-btn.playing { animation: pulse 1s infinite; border-color: var(--brand); background: var(--brand-soft); }
+.icon-btn {
+  flex: none; width: 56px; font-size: 1.3rem; cursor: pointer; border-radius: 16px;
+  background: var(--card2); border: 2px solid var(--line); color: var(--ink);
+}
+.icon-btn:hover { border-color: var(--brand); }
+@keyframes pulse { 50% { transform: scale(1.05); } }
+
+/* schermata iniziale */
+.hero { text-align: center; padding-top: .5rem; }
+.hero-emoji { font-size: 3.5rem; line-height: 1; }
+.steps { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: .6rem; }
+.steps li { display: flex; align-items: center; gap: .9rem; background: var(--card2); border-radius: 16px; padding: .75rem 1rem; }
+.steps .n { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font-weight: 700; }
+.cast { display: flex; justify-content: center; flex-wrap: wrap; gap: .4rem; font-size: 1.8rem; margin: .5rem 0 1.25rem; }
+.field { margin-bottom: 1.1rem; }
+.field label, .field legend { display: block; font-weight: 600; margin-bottom: .4rem; padding: 0; }
+fieldset.field { border: 0; margin: 0 0 1.1rem; padding: 0; min-width: 0; }
+input[type="text"] {
+  width: 100%; font: inherit; font-size: 1.1rem; min-height: 56px; padding: .6rem 1rem;
+  border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: var(--ink);
+}
+input[type="text"]:focus { border-color: var(--brand); }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label {
+  margin: 0; text-align: center; font-weight: 500; font-size: .9rem; cursor: pointer;
+  min-height: 56px; display: flex; align-items: center; justify-content: center; padding: .4rem;
+  border-radius: 16px; border: 2px solid var(--line); background: var(--card2);
+}
+.seg input:checked + label { border-color: var(--brand); background: var(--brand-soft); font-weight: 700; }
+.seg input:focus-visible + label { outline: 4px solid var(--brand); outline-offset: 3px; }
+
+/* gioco */
+.topline { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-bottom: .6rem; }
+.pill { background: var(--card2); border: 2px solid var(--line); border-radius: 999px; padding: .2rem .85rem; font-weight: 600; font-size: .9rem; }
+.pill.hot { background: var(--hint-bg); color: var(--hint-ink); border-color: transparent; }
+.progress { height: 14px; border-radius: 999px; background: var(--card2); border: 1px solid var(--line); overflow: hidden; margin-bottom: 1.1rem; }
+#progress-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #009246, var(--brand), #ce2b37); transition: width .5s; }
+.case-head { display: flex; align-items: center; gap: 1rem; margin-bottom: .9rem; }
+.avatar { flex: none; width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font-size: 2.4rem; border: 3px solid var(--card); box-shadow: 0 0 0 3px var(--line); }
+.kicker { color: var(--muted); font-size: .85rem; font-weight: 500; }
+.story {
+  background: var(--card2); border-left: 7px solid var(--brand); border-radius: 18px;
+  padding: 1.1rem 1.25rem; font-size: 1.2rem; line-height: 1.8; margin-bottom: .8rem;
+}
+.row-actions { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.gloss { font: inherit; font-weight: 600; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; border-bottom: 3px dotted var(--brand); }
+.gloss:hover { background: var(--brand-soft); }
+.gloss-box, .hint-box { border-radius: 16px; padding: .85rem 1.1rem; margin-bottom: .8rem; animation: pop .25s ease; }
+.gloss-box { background: var(--brand-soft); }
+.hint-box { background: var(--hint-bg); color: var(--hint-ink); }
+.options { display: grid; gap: .75rem; margin-top: .6rem; }
+.opt { display: flex; gap: .5rem; }
+.opt-main {
+  flex: 1; display: flex; align-items: center; gap: .9rem; text-align: left; cursor: pointer;
+  font: inherit; font-size: 1rem; color: var(--ink); min-height: 68px; padding: .8rem 1rem;
+  background: var(--card); border: 2px solid var(--line); border-radius: 18px; transition: transform .15s, border-color .15s, background .15s;
+}
+.opt-main:hover:not(:disabled) { border-color: var(--brand); background: var(--brand-soft); transform: translateX(3px); }
+.opt-main:disabled { cursor: default; }
+.art-badge { flex: none; background: var(--brand-soft); color: var(--brand); border-radius: 12px; padding: .35rem .65rem; font-weight: 700; white-space: nowrap; }
+.opt.ok .opt-main { border-color: var(--ok); background: var(--ok-bg); color: var(--ok-ink); }
+.opt.ok .art-badge { background: var(--ok); color: var(--card); }
+.opt.bad .opt-main { border-color: var(--bad); background: var(--bad-bg); color: var(--bad-ink); animation: shake .4s; }
+.opt.bad .art-badge { background: var(--bad); color: var(--card); }
+.opt.ok .opt-main::after { content: "✔"; margin-left: auto; font-weight: 700; }
+.opt.bad .opt-main::after { content: "✕"; margin-left: auto; font-weight: 700; }
+.retry { margin-top: .9rem; background: var(--hint-bg); color: var(--hint-ink); padding: .8rem 1rem; border-radius: 16px; font-weight: 600; }
+.feedback { margin-top: 1.1rem; border-radius: 20px; padding: 1.1rem 1.25rem; animation: pop .3s ease; }
+.feedback.good { background: var(--ok-bg); color: var(--ok-ink); }
+.feedback.miss { background: var(--hint-bg); color: var(--hint-ink); }
+.feedback h4 { margin: 0 0 .4rem; font-size: 1.25rem; }
+.feedback p { margin: .4rem 0; }
+.simple { background: var(--card); color: var(--ink); border-radius: 14px; padding: .7rem 1rem; margin: .7rem 0; font-weight: 600; }
+#next-btn { margin-top: 1rem; }
+.hardnote { margin: .4rem 0 .6rem; padding: .6rem .9rem; border-radius: 14px; background: var(--brand-soft); color: var(--ink); font-size: .9rem; font-weight: 500; }
+.opt-main.only-num { justify-content: center; min-height: 76px; }
+.opt-main.only-num .art-badge { font-size: 1.6rem; padding: .5rem 1.6rem; }
+@keyframes shake { 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); } }
+@keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.screen { animation: pop .35s ease; }
+[hidden] { display: none !important; }
+
+/* finale */
+.stars { font-size: 2.8rem; text-align: center; letter-spacing: .2em; }
+.diploma {
+  border: 3px double var(--brand); border-radius: 22px; padding: 1.25rem 1rem; text-align: center;
+  background: var(--card2); margin: 1rem 0;
+}
+.diploma .small { color: var(--muted); font-size: .9rem; }
+.diploma .big { font-size: 1.5rem; font-weight: 700; color: var(--brand); margin: .2rem 0; }
+.diploma .who { font-size: 1.6rem; font-weight: 700; margin: .4rem 0; }
+.recap { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .5rem; }
+.recap li { display: flex; gap: .7rem; align-items: center; background: var(--card2); border-radius: 14px; padding: .6rem .9rem; font-size: .95rem; }
+.recap .ic { font-size: 1.3rem; }
+.end-actions { display: grid; gap: .7rem; }
+
+/* coriandoli */
+.confetti { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 50; pointer-events: none; animation: fall 1.6s ease-in forwards; }
+@keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: .8; } }
+
+@media (max-width: 520px) {
+  .card { padding: 1rem 1rem 1.5rem; border-radius: 22px; }
+  .stripe { margin: -1rem -1rem 1rem; }
+  h1 { font-size: 1.6rem; }
+  .seg label { font-size: .8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<main class="app">
+<div class="card">
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <div class="toolbar" role="group" aria-label="Aiuti per leggere e ascoltare">
+    <div class="tb-group">
+      <button type="button" class="chip" id="size-down" aria-label="Rimpicciolisci il testo">A−</button>
+      <button type="button" class="chip" id="size-up" aria-label="Ingrandisci il testo">A+</button>
+    </div>
+    <button type="button" class="chip" data-toggle="auto" aria-pressed="true">🗣️ Lettura automatica</button>
+    <button type="button" class="chip" data-toggle="slow" aria-pressed="true">🐢 Voce lenta</button>
+    <button type="button" class="chip" data-toggle="sfx" aria-pressed="true">🎵 Suoni</button>
+    <button type="button" class="chip" data-toggle="hide" aria-pressed="false">🙈 Modalità difficile (solo numeri)</button>
+  </div>
+  <div id="audio-note" class="note" role="status" hidden></div>
+
+  <!-- 1. INIZIO -->
+  <section id="screen-start" class="screen">
+    <div class="hero">
+      <div class="hero-emoji" aria-hidden="true">🏛️</div>
+      <h1>Difendi i tuoi amici!</h1>
+      <p class="lead">Aiuta i tuoi amici a difendere i loro diritti. Così impari la Costituzione italiana.</p>
+      <button type="button" class="btn-ghost" id="intro-audio">🔊 Ascolta le istruzioni</button>
+    </div>
+    <ol class="steps">
+      <li><span class="n">1</span><span>Leggi o ascolta la storia di un amico.</span></li>
+      <li><span class="n">2</span><span>Scegli l’articolo della Costituzione che lo protegge.</span></li>
+      <li><span class="n">3</span><span>Impara il diritto con una spiegazione semplice.</span></li>
+    </ol>
+    <div class="cast" aria-hidden="true">🧑‍🔧 🧕 🤒 👩‍💼 🧑‍🎓 ⚽ 👷</div>
+
+    <div class="field">
+      <label for="player-name">Come ti chiami?</label>
+      <input type="text" id="player-name" placeholder="Scrivi qui il tuo nome" autocomplete="given-name" maxlength="30">
+    </div>
+    <fieldset class="field">
+      <legend>Come vuoi che ti parli il gioco?</legend>
+      <div class="seg">
+        <input type="radio" name="gender" id="g-o" value="o" checked><label for="g-o">Maschile<br>«Bravo!»</label>
+        <input type="radio" name="gender" id="g-a" value="a"><label for="g-a">Femminile<br>«Brava!»</label>
+        <input type="radio" name="gender" id="g-e" value="e"><label for="g-e">Neutro<br>«Ottimo lavoro!»</label>
+      </div>
+    </fieldset>
+    <button type="button" class="btn-primary" id="start-btn">Inizia l’avventura ▶</button>
+  </section>
+
+  <!-- 2. GIOCO -->
+  <section id="screen-game" class="screen" hidden>
+    <div class="topline">
+      <span class="pill" id="case-count">Caso 1 di 10</span>
+      <span class="pill" id="score-pill">⭐ 0</span>
+      <span class="pill hot" id="streak-pill" hidden>🔥</span>
+    </div>
+    <div class="progress" id="progress" role="progressbar" aria-label="Avanzamento" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill"></div></div>
+
+    <header class="case-head">
+      <div class="avatar" id="avatar" aria-hidden="true"></div>
+      <div>
+        <div class="kicker">Il tuo amico ha bisogno di te</div>
+        <h2 id="case-title" tabindex="-1"></h2>
+      </div>
+    </header>
+
+    <div class="story" id="story"></div>
+    <div class="row-actions">
+      <button type="button" class="btn-ghost" id="listen-story">🔊 Ascolta la storia</button>
+      <button type="button" class="btn-ghost" id="hint-btn">💡 Aiutino</button>
+    </div>
+    <div class="gloss-box" id="gloss-box" hidden></div>
+    <div class="hint-box" id="hint-box" hidden></div>
+
+    <h3 class="question" id="question"></h3>
+    <p class="hardnote" id="hard-note" hidden>🙈 Modalità difficile: vedi solo il numero dell’articolo. Gli argomenti compaiono dopo la risposta. Punti: 15 al primo colpo.</p>
+    <button type="button" class="btn-ghost" id="listen-options">🔊 Ascolta le risposte</button>
+    <div class="options" id="options"></div>
+    <div class="retry" id="retry" role="status" hidden></div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+    <button type="button" class="btn-primary" id="next-btn" hidden>Prossimo amico ➔</button>
+  </section>
+
+  <!-- 3. FINALE -->
+  <section id="screen-end" class="screen" hidden>
+    <div class="stars" id="end-stars" aria-hidden="true"></div>
+    <h2 id="end-title" style="text-align:center" tabindex="-1">Grande lavoro!</h2>
+    <div class="diploma">
+      <div class="small">Diploma della Costituzione</div>
+      <div class="big" id="dip-title"></div>
+      <div class="small">assegnato a</div>
+      <div class="who" id="dip-name"></div>
+      <div class="small" id="dip-score"></div>
+    </div>
+    <p id="end-text" style="text-align:center"></p>
+    <ul class="recap" id="recap"></ul>
+    <div class="end-actions">
+      <button type="button" class="btn-ghost" id="end-audio">🔊 Ascolta il riepilogo</button>
+      <button type="button" class="btn-primary" id="restart-btn">Gioca di nuovo 🔄</button>
+    </div>
+  </section>
+</div>
+</main>
+
+<script>
+(function () {
+"use strict";
+
+const $ = (s) => document.querySelector(s);
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ============ SALVATAGGIO IMPOSTAZIONI ============ */
+const Store = {
+  get(k, d) { try { const v = localStorage.getItem("dta:" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("dta:" + k, JSON.stringify(v)); } catch (e) {} }
+};
+const settings = {
+  scaleIdx: Store.get("scaleIdx", 1),
+  auto: Store.get("auto", true),
+  slow: Store.get("slow", true),
+  sfx: Store.get("sfx", true),
+  hide: Store.get("hide", false)
+};
+const SCALES = [0.9, 1, 1.15, 1.3, 1.5];
+
+/* ============ ARTICOLI ============ */
+const ART = {
+  3:  "Tutte le persone sono uguali, senza differenze",
+  9:  "L’Italia protegge la natura e i luoghi belli",
+  10: "Chi scappa da un Paese senza libertà ha diritto d’asilo",
+  11: "L’Italia rifiuta la guerra",
+  12: "La bandiera dell’Italia è il tricolore",
+  13: "Nessuno può essere arrestato senza regole",
+  15: "I tuoi messaggi sono privati e segreti",
+  16: "Puoi muoverti e viaggiare liberamente in Italia",
+  17: "Puoi riunirti con altre persone in modo pacifico",
+  18: "Puoi creare associazioni e gruppi",
+  19: "Ognuno è libero di scegliere la sua religione",
+  21: "Puoi dire e scrivere liberamente quello che pensi",
+  27: "Sei innocente finché un giudice non decide il contrario",
+  32: "La salute è un diritto di tutti",
+  34: "La scuola è aperta a tutti",
+  36: "Chi lavora ha diritto a uno stipendio giusto",
+  37: "Donne e uomini: stesso lavoro, stessa paga",
+  40: "Chi lavora ha il diritto di scioperare",
+  48: "Dai 18 anni puoi votare",
+  52: "Difendere la Patria è un dovere",
+  53: "Tutti pagano le tasse in base a quanto guadagnano"
+};
+
+/* ============ SCENARI ============
+   {{parola|spiegazione}} = parola da toccare per leggere il significato */
+const SCENARIOS = [
+  {
+    friend: "Marco", emoji: "👷", color: "#fde68a", title: "Marco e il lavoro estivo",
+    text: "Marco cerca un lavoro per l’estate. Il {{datore di lavoro|La persona che ti dà il lavoro e ti paga.}} gli dice: «Ti pago 2 euro all’ora. Non c’è nessun {{contratto|Un foglio firmato che spiega il lavoro, gli orari e lo stipendio.}}. Lavori 10 ore al giorno!» Marco è triste e non sa cosa fare.",
+    art: 36, wrong: [12, 53],
+    hint: "Parole chiave: stipendio, ore di lavoro.",
+    simple: "Chi lavora ha diritto a uno stipendio giusto.",
+    explain: "L’Articolo 36 dice che chi lavora ha diritto a uno stipendio giusto, che basti per vivere con dignità. La legge limita anche le ore di lavoro e dà diritto al riposo e alle ferie pagate. Un lavoro senza contratto e a 2 euro all’ora non rispetta questi diritti."
+  },
+  {
+    friend: "Amina", emoji: "🧕", color: "#fbcfe8", title: "Amina e le sue idee",
+    text: "Amina vuole scrivere un articolo per il giornale della scuola. Vuole dire cosa pensa di un problema della sua città. Ma un compagno le dice: «Tu non puoi parlare di questo! Stai zitta!»",
+    art: 21, wrong: [13, 52],
+    hint: "Parole chiave: scrivere, dire cosa pensi.",
+    simple: "Ognuno può dire e scrivere liberamente quello che pensa.",
+    explain: "L’Articolo 21 dice che tutti hanno il diritto di esprimere le proprie idee con la parola, con lo scritto e con ogni altro mezzo. Questo vale anche sui social. Ci sono dei limiti: non si può insultare o minacciare le persone."
+  },
+  {
+    friend: "Leo", emoji: "🤒", color: "#bbf7d0", title: "Leo e la salute",
+    text: "Leo sta molto male. Ha la febbre alta da tre giorni e ha bisogno di un dottore. Ma ha paura, perché non ha soldi. Pensa: «Nessuno mi curerà.»",
+    art: 32, wrong: [18, 52],
+    hint: "Parole chiave: stare male, dottore, cure.",
+    simple: "La salute è un diritto di tutti. Chi non ha soldi ha diritto alle cure gratuite.",
+    explain: "L’Articolo 32 dice che la salute è un diritto fondamentale di ogni persona. La Repubblica garantisce cure gratuite agli indigenti, cioè alle persone che non hanno soldi."
+  },
+  {
+    friend: "Sara", emoji: "👩‍💼", color: "#c7d2fe", title: "Sara e l’uguaglianza",
+    text: "Sara cerca lavoro in un’azienda. È molto brava e ha tanti titoli di studio. Il direttore le dice: «Sei una donna e sei nata in un altro Paese. Scelgo un uomo italiano, anche se tu sei più brava.»",
+    art: 3, wrong: [11, 34],
+    hint: "Parole chiave: donna, straniera, trattata peggio.",
+    simple: "Tutte le persone sono uguali davanti alla legge.",
+    explain: "L’Articolo 3 dice che tutte le persone hanno pari dignità e sono uguali davanti alla legge. Nessuno può essere trattato peggio per il sesso, il colore della pelle, la lingua, la religione, le opinioni o la condizione sociale."
+  },
+  {
+    friend: "Giulia", emoji: "🛍️", color: "#fecaca", title: "Giulia e la paga",
+    text: "Giulia lavora in un negozio. Fa lo stesso lavoro di Mario, con gli stessi orari. Ma Giulia riceve 200 euro in meno ogni mese. Il capo dice: «Tu sei una donna, per te basta meno.»",
+    art: 37, wrong: [53, 16],
+    hint: "Parole chiave: stesso lavoro, stessa paga, donna.",
+    simple: "A parità di lavoro, la donna ha la stessa paga dell’uomo.",
+    explain: "L’Articolo 37 dice che la donna che lavora ha gli stessi diritti dell’uomo. A parità di lavoro deve avere anche la stessa paga."
+  },
+  {
+    friend: "Elena", emoji: "🎂", color: "#fed7aa", title: "Elena compie 18 anni",
+    text: "Domani Elena compie 18 anni. A scuola si parla delle {{elezioni|Il giorno in cui i cittadini scelgono, con il voto, chi governa.}}. Elena chiede alla professoressa: «Posso votare anch’io?»",
+    art: 48, wrong: [12, 52],
+    hint: "Parole chiave: 18 anni, elezioni, votare.",
+    simple: "A 18 anni puoi votare. Il voto è libero e segreto.",
+    explain: "L’Articolo 48 dice che tutti i cittadini, uomini e donne, possono votare quando diventano maggiorenni, cioè a 18 anni. Il voto è libero e segreto: nessuno può obbligarti a votare per qualcuno."
+  },
+  {
+    friend: "Ahmed", emoji: "🧑‍🎓", color: "#a5f3fc", title: "Ahmed vuole studiare",
+    text: "Ahmed ha 17 anni ed è arrivato in Italia da poco. È bravo e vuole continuare a studiare. Un impiegato gli dice: «Studiare costa troppo per te. Lascia perdere e vai a lavorare.»",
+    art: 34, wrong: [16, 12],
+    hint: "Parole chiave: studiare, scuola.",
+    simple: "Chi è bravo e vuole studiare ha diritto di farlo, anche senza soldi.",
+    explain: "L’Articolo 34 dice che la scuola è aperta a tutti. Chi è bravo e vuole studiare ha diritto di arrivare ai livelli più alti, anche se non ha soldi. Lo Stato aiuta con le borse di studio."
+  },
+  {
+    friend: "Luca", emoji: "☕", color: "#e9d5ff", title: "Luca e i messaggi privati",
+    text: "Luca lavora in un bar. Durante la pausa, il suo capo prende il telefono di Luca e legge i messaggi privati con gli amici. Poi dice: «Voglio sapere con chi parli e cosa scrivi!»",
+    art: 15, wrong: [53, 12],
+    hint: "Parole chiave: messaggi, privati, segreti.",
+    simple: "I tuoi messaggi sono privati. Nessuno può leggerli senza permesso.",
+    explain: "L’Articolo 15 dice che la libertà e la segretezza della corrispondenza e di ogni altra comunicazione sono inviolabili, cioè nessuno può toccarle. Oggi questo vale anche per chat, messaggi ed email. Solo un giudice, con regole precise, può permettere di controllarli."
+  },
+  {
+    friend: "Fatima", emoji: "🧕🏽", color: "#fbcfe8", title: "Fatima e la sua religione",
+    text: "Fatima è musulmana. Oggi è una grande festa religiosa e vuole pregare con la sua famiglia. Un vicino dice: «In Italia non si può pregare così. Dovete cambiare religione!»",
+    art: 19, wrong: [13, 53],
+    hint: "Parole chiave: religione, pregare.",
+    simple: "Ognuno può scegliere la sua religione e praticarla.",
+    explain: "L’Articolo 19 dice che tutti hanno il diritto di professare liberamente la propria {{fede|Ciò in cui una persona crede.}} religiosa, in privato o in pubblico, da soli o con altre persone. In Italia ognuno è libero di credere o di non credere."
+  },
+  {
+    friend: "Paolo", emoji: "🧔", color: "#d9f99d", title: "Paolo e il processo",
+    text: "Paolo è accusato di un furto. Il {{processo|Il momento in cui un giudice decide se una persona ha fatto una cosa sbagliata.}} non è ancora finito e il giudice non ha ancora deciso. Ma sui social tutti scrivono: «Paolo è un ladro!»",
+    art: 27, wrong: [53, 18],
+    hint: "Parole chiave: accusato, giudice, colpevole.",
+    simple: "Sei innocente finché un giudice non decide il contrario.",
+    explain: "L’Articolo 27 dice che una persona accusata non è considerata colpevole fino alla condanna definitiva. Prima della decisione del giudice, nessuno può dire che Paolo è colpevole."
+  },
+  {
+    friend: "Davide", emoji: "⚽", color: "#bae6fd", title: "Davide e la squadra",
+    text: "Davide e i suoi amici amano il calcio. Vogliono creare una squadra di quartiere e un piccolo club. Una persona dice: «Non potete! Per fare un gruppo serve un permesso speciale.»",
+    art: 18, wrong: [12, 52],
+    hint: "Parole chiave: gruppo, squadra, club.",
+    simple: "Puoi creare un’associazione con altre persone, se lo scopo è legale.",
+    explain: "L’Articolo 18 dice che i cittadini hanno il diritto di unirsi liberamente in {{associazioni|Gruppi di persone che si uniscono per uno scopo comune, per esempio uno sport o il volontariato.}}, senza chiedere un permesso, se lo scopo non è vietato dalla legge. Per esempio: squadre sportive, gruppi di volontariato, club culturali."
+  },
+  {
+    friend: "Tommaso", emoji: "🙋", color: "#fef08a", title: "Tommaso e la manifestazione",
+    text: "Tommaso e i suoi compagni vogliono fare una {{manifestazione|Un gruppo di persone che si riunisce in un luogo pubblico per chiedere qualcosa.}} in piazza per chiedere più autobus per andare a scuola. Non portano armi e vogliono restare calmi. Un vigile dice: «Vietato ritrovarsi in tanti!»",
+    art: 17, wrong: [11, 53],
+    hint: "Parole chiave: riunirsi, pacifico, senza armi.",
+    simple: "Puoi riunirti con altre persone, se lo fai in modo pacifico.",
+    explain: "L’Articolo 17 dice che i cittadini hanno il diritto di riunirsi in modo pacifico e senza armi. Per una riunione in piazza bisogna avvisare prima le autorità, che la possono vietare solo per motivi di sicurezza."
+  },
+  {
+    friend: "Omar", emoji: "🧑🏽", color: "#fdba74", title: "Omar scappa dalla guerra",
+    text: "Omar viene da un Paese in guerra. Lì chi critica il {{governo|Le persone che guidano un Paese e prendono le decisioni più importanti.}} va in prigione. Omar è scappato ed è arrivato in Italia. Ha paura che lo mandino indietro.",
+    art: 10, wrong: [12, 16],
+    hint: "Parole chiave: scappare, Paese senza libertà.",
+    simple: "L’Italia protegge chi scappa da un Paese senza libertà.",
+    explain: "L’Articolo 10 dice che chi, nel suo Paese, non può vivere libero ha diritto all’{{asilo|La protezione che un Paese dà a chi scappa da un pericolo.}} in Italia. Le regole precise sono stabilite dalle leggi."
+  },
+  {
+    friend: "Chiara", emoji: "🌿", color: "#86efac", title: "Chiara e il fiume",
+    text: "Vicino alla casa di Chiara c’è un bel fiume. Una fabbrica ci butta dentro rifiuti sporchi e i pesci muoiono. Chiara vuole proteggere la natura e i luoghi belli della sua città.",
+    art: 9, wrong: [16, 53],
+    hint: "Parole chiave: natura, fiume, proteggere.",
+    simple: "L’Italia deve proteggere la natura e i luoghi belli.",
+    explain: "L’Articolo 9 dice che la Repubblica protegge l’ambiente, la natura, il paesaggio e il patrimonio storico e artistico. Deve farlo anche per chi vivrà dopo di noi, cioè per le future generazioni."
+  },
+  {
+    friend: "Rosa", emoji: "👷‍♀️", color: "#fca5a5", title: "Rosa e lo sciopero",
+    text: "Rosa lavora in una fabbrica dove le macchine sono vecchie e pericolose. I lavoratori chiedono più sicurezza, ma il capo non li ascolta. Decidono di fare {{sciopero|Smettere di lavorare tutti insieme per un po’ di tempo, per protestare.}} per un giorno. Il capo urla: «Chi domani non lavora è licenziato!»",
+    art: 40, wrong: [11, 53],
+    hint: "Parole chiave: smettere di lavorare, protesta.",
+    simple: "I lavoratori possono scioperare per difendere i propri diritti.",
+    explain: "L’Articolo 40 dice che lo sciopero è un diritto. I lavoratori possono smettere di lavorare tutti insieme per protestare, nei modi previsti dalla legge. Il capo non può licenziarli solo per questo."
+  }
+];
+
+/* ============ VOCE (sintesi vocale) ============ */
+const Voice = (function () {
+  const synth = ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) ? window.speechSynthesis : null;
+  let voice = null, voicesLoaded = false, token = 0, keep = [], currentBtn = null, watchdog = null, started = false;
+  const noteEl = $("#audio-note");
+
+  function showNote(msg) { noteEl.textContent = msg; noteEl.hidden = !msg; }
+
+  function scoreVoice(v) {
+    const n = (v.name || "").toLowerCase();
+    let s = 0;
+    if (/natural|neural|premium|enhanced|google/.test(n)) s += 5;
+    if (/elsa|alice|luca|federica|paola|isabella|diego/.test(n)) s += 3;
+    if (!v.localService) s += 1;
+    if ((v.lang || "").replace("_", "-").toLowerCase() === "it-it") s += 2;
+    return s;
+  }
+  function loadVoices() {
+    if (!synth) return;
+    const all = synth.getVoices();
+    if (!all.length) return;
+    voicesLoaded = true;
+    const it = all.filter((v) => (v.lang || "").replace("_", "-").toLowerCase().startsWith("it"));
+    voice = it.sort((a, b) => scoreVoice(b) - scoreVoice(a))[0] || null;
+    if (!voice) showNote("Non trovo una voce italiana su questo dispositivo, quindi la lettura potrebbe avere un accento strano. Puoi aggiungerne una nelle impostazioni del dispositivo.");
+    else if (noteEl.textContent.startsWith("Non trovo")) showNote("");
+  }
+  if (synth) {
+    loadVoices();
+    if (synth.addEventListener) synth.addEventListener("voiceschanged", loadVoices);
+    else synth.onvoiceschanged = loadVoices;
+    setTimeout(loadVoices, 500);
+    setTimeout(loadVoices, 1500);
+  } else {
+    showNote("Questo browser non può leggere ad alta voce. Prova con Chrome, Edge o Safari.");
+  }
+
+  // Pulisce il testo per la voce: niente emoji, asterischi, simboli
+  function clean(t) {
+    return String(t)
+      .replace(/\{\{([^|]+)\|[^}]+\}\}/g, "$1")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, "")
+      .replace(/€/g, " euro ")
+      .replace(/[*_#]/g, "")
+      .replace(/[«»]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  // Spezza in frasi: Chrome interrompe i testi lunghi
+  function chunk(t) {
+    const parts = t.match(/[^.!?;:]+[.!?;:]*\s*/g) || [t];
+    const out = [];
+    let buf = "";
+    parts.forEach((p) => {
+      if ((buf + p).length > 170 && buf) { out.push(buf.trim()); buf = p; } else { buf += p; }
+    });
+    if (buf.trim()) out.push(buf.trim());
+    return out;
+  }
+  function setPlaying(btn) {
+    if (currentBtn) currentBtn.classList.remove("playing");
+    currentBtn = btn || null;
+    if (currentBtn) currentBtn.classList.add("playing");
+  }
+  function stop() {
+    token++;
+    clearTimeout(watchdog);
+    setPlaying(null);
+    if (synth) { try { synth.cancel(); } catch (e) {} }
+  }
+  function speak(text, opts) {
+    opts = opts || {};
+    if (!synth) { if (opts.onDone) opts.onDone(); return; }
+    if (!opts.force && !settings.auto) { if (opts.onDone) opts.onDone(); return; }
+    const my = ++token;
+    clearTimeout(watchdog);
+    try { synth.cancel(); } catch (e) {}
+    setPlaying(opts.btn);
+    const parts = chunk(clean(text));
+    keep = [];
+    started = false;
+    setTimeout(function () {
+      if (my !== token) return;
+      try { synth.resume(); } catch (e) {}
+      let i = 0;
+      const next = function () {
+        if (my !== token) return;
+        if (i >= parts.length) { setPlaying(null); if (opts.onDone) opts.onDone(); return; }
+        const u = new SpeechSynthesisUtterance(parts[i++]);
+        u.lang = voice ? voice.lang : "it-IT";
+        if (voice) u.voice = voice;
+        u.rate = settings.slow ? 0.8 : 1;
+        u.pitch = 1; u.volume = 1;
+        u.onstart = function () { started = true; clearTimeout(watchdog); if (noteEl.textContent.startsWith("Non senti")) showNote(""); };
+        u.onend = next;
+        u.onerror = function (e) { if (e.error === "interrupted" || e.error === "canceled") return; next(); };
+        keep.push(u); // evita che il browser elimini la frase mentre parla
+        synth.speak(u);
+      };
+      watchdog = setTimeout(function () {
+        if (my === token && !started) showNote("Non senti l’audio? Alza il volume e controlla che il telefono non sia in modalità silenziosa.");
+      }, 3000);
+      next();
+    }, (opts.delay || 0) + 90);
+  }
+  return { speak: speak, stop: stop };
+})();
+
+/* ============ SUONI ============ */
+const Sfx = {
+  ctx: null,
+  unlock() {
+    try {
+      if (!this.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) this.ctx = new C(); }
+      if (this.ctx && this.ctx.state === "suspended") this.ctx.resume();
+    } catch (e) {}
+  },
+  tone(f, start, dur, type, vol) {
+    if (!settings.sfx || !this.ctx) return;
+    const t = this.ctx.currentTime + start;
+    const o = this.ctx.createOscillator(), g = this.ctx.createGain();
+    o.type = type || "triangle";
+    o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.18, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(this.ctx.destination);
+    o.start(t); o.stop(t + dur + 0.05);
+  },
+  ok() { [523.25, 659.25, 783.99].forEach((f, i) => this.tone(f, i * 0.09, 0.25)); },
+  no() { this.tone(220, 0, 0.22, "sine", 0.16); this.tone(185, 0.14, 0.3, "sine", 0.16); },
+  win() { [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => this.tone(f, i * 0.12, 0.35)); },
+  tap() { this.tone(660, 0, 0.06, "sine", 0.08); }
+};
+
+function confetti() {
+  if (reduceMotion) return;
+  const colors = ["#009246", "#ce2b37", "#1d4ed8", "#f59e0b", "#ec4899"];
+  for (let i = 0; i < 36; i++) {
+    const c = document.createElement("span");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = colors[i % colors.length];
+    c.style.animationDelay = Math.random() * 0.4 + "s";
+    c.style.animationDuration = 1.2 + Math.random() * 0.8 + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 2600);
+  }
+}
+
+/* ============ STATO DEL GIOCO ============ */
+const ROUND = 10;
+let playerName = "", gender = "o";
+let deck = [], idx = 0, points = 0, streak = 0, tries = 0, results = [], answered = false, maxTotal = 0;
+
+const WORDS = {
+  bravo: { o: "Bravo", a: "Brava", e: "Ottimo lavoro" },
+  dip:   { o: "Difensore dei Diritti", a: "Difenditrice dei Diritti", e: "Custode dei Diritti" },
+  you:   { o: "un difensore dei diritti", a: "una difenditrice dei diritti", e: "una persona che sa difendere i diritti" }
+};
+
+function shuffle(a) {
+  const r = a.slice();
+  for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; }
+  return r;
+}
+function rich(s) {
+  return s.replace(/\{\{([^|]+)\|([^}]+)\}\}/g, (m, w, d) => '<button type="button" class="gloss" data-w="' + w + '" data-m="' + d + '">' + w + "</button>");
+}
+function plain(s) { return s.replace(/\{\{([^|]+)\|[^}]+\}\}/g, "$1"); }
+function show(id) {
+  ["screen-start", "screen-game", "screen-end"].forEach((s) => { $("#" + s).hidden = s !== id; });
+  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+/* ============ IMPOSTAZIONI (barra aiuti) ============ */
+function applySettings() {
+  document.documentElement.style.setProperty("--scale", SCALES[settings.scaleIdx]);
+  document.querySelectorAll("[data-toggle]").forEach((b) => b.setAttribute("aria-pressed", String(settings[b.dataset.toggle])));
+}
+$("#size-up").onclick = () => { settings.scaleIdx = Math.min(SCALES.length - 1, settings.scaleIdx + 1); Store.set("scaleIdx", settings.scaleIdx); applySettings(); };
+$("#size-down").onclick = () => { settings.scaleIdx = Math.max(0, settings.scaleIdx - 1); Store.set("scaleIdx", settings.scaleIdx); applySettings(); };
+document.querySelectorAll("[data-toggle]").forEach((b) => {
+  b.onclick = () => {
+    const k = b.dataset.toggle;
+    settings[k] = !settings[k];
+    Store.set(k, settings[k]);
+    if (k === "auto" && !settings.auto) Voice.stop();
+    if (k === "hide" && deck.length && !$("#screen-game").hidden && !answered) syncOptions();
+    Sfx.unlock();
+    applySettings();
+  };
+});
+applySettings();
+
+/* ============ SCHERMATA INIZIALE ============ */
+$("#player-name").value = Store.get("name", "");
+const savedG = Store.get("gender", "o");
+const gEl = document.getElementById("g-" + savedG);
+if (gEl) gEl.checked = true;
+
+$("#intro-audio").onclick = function () {
+  Sfx.unlock();
+  Voice.speak("Benvenuto! In questo gioco aiuti i tuoi amici a difendere i loro diritti. Leggi la storia. Poi scegli l’articolo della Costituzione giusto. Se sbagli, puoi riprovare. Alla fine, impari il diritto con una spiegazione semplice.", { force: true, btn: this });
+};
+$("#player-name").addEventListener("keydown", (e) => { if (e.key === "Enter") startGame(); });
+$("#start-btn").onclick = startGame;
+
+function startGame() {
+  Sfx.unlock();
+  const n = $("#player-name").value.trim();
+  if (!n) {
+    $("#player-name").focus();
+    $("#player-name").style.borderColor = "var(--bad)";
+    Voice.speak("Scrivi il tuo nome per iniziare.", { force: true });
+    return;
+  }
+  playerName = n;
+  gender = (document.querySelector('input[name="gender"]:checked') || { value: "o" }).value;
+  Store.set("name", playerName);
+  Store.set("gender", gender);
+  deck = shuffle(SCENARIOS).slice(0, ROUND);
+  idx = 0; points = 0; streak = 0; results = []; maxTotal = 0;
+  Sfx.tap();
+  show("screen-game");
+  loadCase();
+}
+
+/* ============ UN CASO ============ */
+function optionLabel(art) {
+  return (settings.hide && !answered) ? "Articolo " + art : "Articolo " + art + ". " + ART[art];
+}
+// Mostra o nasconde gli argomenti degli articoli (modalità difficile)
+function syncOptions() {
+  const hid = settings.hide && !answered;
+  $("#hard-note").hidden = !settings.hide || answered;
+  document.querySelectorAll(".opt").forEach((r) => {
+    const a = Number(r.dataset.art);
+    r.querySelector(".opt-topic").hidden = hid;
+    r.querySelector(".opt-main").classList.toggle("only-num", hid);
+    r.querySelector(".icon-btn").setAttribute("aria-label", "Ascolta: " + optionLabel(a));
+  });
+}
+
+function loadCase() {
+  const sc = deck[idx];
+  tries = 0; answered = false;
+  Voice.stop();
+
+  $("#case-count").textContent = "Caso " + (idx + 1) + " di " + deck.length;
+  $("#score-pill").textContent = "⭐ " + points;
+  const sp = $("#streak-pill");
+  sp.hidden = streak < 2;
+  sp.textContent = "🔥 " + streak + " di fila!";
+  const pct = Math.round((idx / deck.length) * 100);
+  $("#progress-fill").style.width = pct + "%";
+  $("#progress").setAttribute("aria-valuenow", pct);
+
+  const av = $("#avatar");
+  av.textContent = sc.emoji;
+  av.style.background = sc.color;
+  $("#case-title").textContent = sc.title;
+  $("#story").innerHTML = rich(sc.text);
+  $("#question").textContent = "Quale articolo della Costituzione aiuta " + sc.friend + "?";
+  $("#gloss-box").hidden = true;
+  $("#hint-box").hidden = true;
+  $("#retry").hidden = true;
+  $("#feedback").hidden = true;
+  $("#next-btn").hidden = true;
+  $("#hint-btn").disabled = false;
+
+  const box = $("#options");
+  box.innerHTML = "";
+  const arts = shuffle([sc.art].concat(sc.wrong));
+  arts.forEach((a) => {
+    const row = document.createElement("div");
+    row.className = "opt";
+    row.dataset.art = a;
+
+    const main = document.createElement("button");
+    main.type = "button";
+    main.className = "opt-main";
+    const badge = document.createElement("span");
+    badge.className = "art-badge";
+    badge.textContent = "Art. " + a;
+    const txt = document.createElement("span");
+    txt.className = "opt-topic";
+    txt.textContent = ART[a];
+    main.appendChild(badge); main.appendChild(txt);
+    main.onclick = () => choose(a, row);
+
+    const snd = document.createElement("button");
+    snd.type = "button";
+    snd.className = "icon-btn";
+    snd.setAttribute("aria-label", "Ascolta: " + optionLabel(a));
+    snd.textContent = "🔊";
+    snd.onclick = () => { Sfx.unlock(); Voice.speak(optionLabel(a), { force: true, btn: snd }); };
+
+    row.appendChild(main); row.appendChild(snd);
+    box.appendChild(row);
+  });
+
+  syncOptions();
+  $("#case-title").focus({ preventScroll: true });
+  // Lettura automatica: storia + risposte
+  Voice.speak(sc.title + ". " + plain(sc.text) + " " + $("#question").textContent + " " + answersText(), { delay: 250 });
+}
+function answersText() {
+  const sc = deck[idx];
+  const order = Array.from(document.querySelectorAll(".opt")).map((r) => Number(r.dataset.art));
+  const names = ["Prima risposta", "Seconda risposta", "Terza risposta"];
+  return order.map((a, i) => names[i] + ": " + optionLabel(a) + ".").join(" ");
+}
+
+function choose(art, row) {
+  if (answered) return;
+  Sfx.unlock();
+  const sc = deck[idx];
+  tries++;
+  const all = Array.from(document.querySelectorAll(".opt"));
+
+  if (art === sc.art) {
+    answered = true;
+    row.classList.add("ok");
+    all.forEach((r) => (r.querySelector(".opt-main").disabled = true));
+    const gain = settings.hide ? (tries === 1 ? 15 : 8) : (tries === 1 ? 10 : 5);
+    maxTotal += settings.hide ? 15 : 10;
+    points += gain;
+    streak = tries === 1 ? streak + 1 : 0;
+    results.push({ sc: sc, status: tries === 1 ? "first" : "second" });
+    Sfx.ok(); confetti();
+    $("#retry").hidden = true;
+    finishCase(true, gain);
+  } else {
+    row.classList.add("bad");
+    row.querySelector(".opt-main").disabled = true;
+    Sfx.no();
+    if (tries >= 2) {
+      answered = true;
+      all.forEach((r) => {
+        r.querySelector(".opt-main").disabled = true;
+        if (Number(r.dataset.art) === sc.art) r.classList.add("ok");
+      });
+      streak = 0;
+      results.push({ sc: sc, status: "miss" });
+      maxTotal += settings.hide ? 15 : 10;
+      $("#retry").hidden = true;
+      finishCase(false, 0);
+    } else {
+      const r = $("#retry");
+      r.hidden = false;
+      r.textContent = "Non è questa. Riprova, puoi farcela! 💪";
+      const h = $("#hint-box");
+      h.hidden = false;
+      h.textContent = "💡 " + sc.hint;
+      Voice.speak("Non è questa. Riprova, puoi farcela! " + sc.hint, { delay: 350 });
+    }
+  }
+}
+
+function finishCase(good, gain) {
+  const sc = deck[idx];
+  syncOptions(); // ora gli argomenti diventano visibili
+  $("#score-pill").textContent = "⭐ " + points;
+  const sp = $("#streak-pill");
+  sp.hidden = streak < 2;
+  sp.textContent = "🔥 " + streak + " di fila!";
+  $("#hint-btn").disabled = true;
+
+  const fb = $("#feedback");
+  fb.className = "feedback " + (good ? "good" : "miss");
+  const title = good
+    ? "✅ " + WORDS.bravo[gender] + "! Risposta giusta" + (tries === 1 ? " al primo colpo!" : "!")
+    : "📘 La risposta giusta era l’Articolo " + sc.art;
+  fb.innerHTML = "<h4></h4><p></p><div class=\"simple\"></div><button type=\"button\" class=\"btn-ghost\">🔊 Ascolta la spiegazione</button>";
+  fb.querySelector("h4").textContent = title;
+  fb.querySelector("p").innerHTML = rich(sc.explain);
+  fb.querySelector(".simple").textContent = "In parole semplici: " + sc.simple;
+  const lb = fb.querySelector("button.btn-ghost");
+  const spoken = (good ? "Esatto! " : "La risposta giusta era l’Articolo " + sc.art + ". ") + plain(sc.explain) + " In parole semplici: " + sc.simple;
+  lb.onclick = () => Voice.speak(spoken, { force: true, btn: lb });
+  fb.hidden = false;
+
+  const nb = $("#next-btn");
+  nb.hidden = false;
+  nb.textContent = idx + 1 < deck.length ? "Prossimo amico ➔" : "Vedi il risultato 🏆";
+
+  Voice.speak(spoken, { delay: 450, btn: lb });
+  setTimeout(() => fb.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" }), 120);
+}
+
+$("#next-btn").onclick = () => {
+  Sfx.unlock(); Sfx.tap();
+  idx++;
+  if (idx < deck.length) { loadCase(); window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); }
+  else endGame();
+};
+$("#listen-story").onclick = function () {
+  Sfx.unlock();
+  const sc = deck[idx];
+  Voice.speak(sc.title + ". " + plain(sc.text) + " " + $("#question").textContent, { force: true, btn: this });
+};
+$("#listen-options").onclick = function () {
+  Sfx.unlock();
+  Voice.speak(answersText(), { force: true, btn: this });
+};
+$("#hint-btn").onclick = function () {
+  const sc = deck[idx];
+  const h = $("#hint-box");
+  h.hidden = false;
+  h.textContent = "💡 " + sc.hint;
+  Voice.speak(sc.hint, { force: true });
+};
+// Parole difficili: tocca per il significato
+document.addEventListener("click", function (e) {
+  const g = e.target.closest && e.target.closest(".gloss");
+  if (!g) return;
+  Sfx.unlock();
+  const box = $("#gloss-box");
+  box.innerHTML = "📖 <strong></strong>: <span></span>";
+  box.querySelector("strong").textContent = g.dataset.w;
+  box.querySelector("span").textContent = g.dataset.m;
+  box.hidden = false;
+  box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+  Voice.speak(g.dataset.w + ". " + g.dataset.m, { force: true });
+});
+
+/* ============ FINALE ============ */
+function endGame() {
+  Voice.stop();
+  $("#progress-fill").style.width = "100%";
+  const max = maxTotal;
+  const ratio = points / max;
+  const starsN = ratio >= 0.85 ? 3 : ratio >= 0.55 ? 2 : 1;
+  const firsts = results.filter((r) => r.status === "first").length;
+  $("#end-stars").textContent = "⭐".repeat(starsN) + "☆".repeat(3 - starsN);
+  $("#end-title").textContent = ratio >= 0.85 ? "Fantastico!" : ratio >= 0.55 ? "Grande lavoro!" : "Bel tentativo!";
+  $("#dip-title").textContent = WORDS.dip[gender];
+  $("#dip-name").textContent = playerName;
+  $("#dip-score").textContent = points + " punti su " + max;
+  $("#end-text").innerHTML = "Hai aiutato <strong>" + deck.length + " amici</strong>. Risposte giuste al primo colpo: <strong>" + firsts + " su " + deck.length + "</strong>.<br>Ora sei " + WORDS.you[gender] + ", " + playerName + "!";
+
+  const list = $("#recap");
+  list.innerHTML = "";
+  results.forEach((r) => {
+    const li = document.createElement("li");
+    const ic = document.createElement("span");
+    ic.className = "ic";
+    ic.textContent = r.status === "first" ? "✅" : r.status === "second" ? "🔁" : "📘";
+    const t = document.createElement("span");
+    t.textContent = "Art. " + r.sc.art + " – " + r.sc.simple;
+    li.appendChild(ic); li.appendChild(t);
+    list.appendChild(li);
+  });
+
+  show("screen-end");
+  $("#end-title").focus({ preventScroll: true });
+  Sfx.win(); confetti();
+  Voice.speak("Complimenti " + playerName + "! Hai aiutato " + deck.length + " amici. Hai risposto bene al primo colpo a " + firsts + " domande su " + deck.length + ". Ora sei " + WORDS.you[gender] + ".", { delay: 600 });
+}
+$("#end-audio").onclick = function () {
+  const lines = results.map((r) => "Articolo " + r.sc.art + ": " + r.sc.simple).join(" ");
+  Voice.speak("Ecco cosa hai imparato. " + lines, { force: true, btn: this });
+};
+$("#restart-btn").onclick = () => { Voice.stop(); Sfx.unlock(); show("screen-start"); };
+})();
+</script>
+</body>
+</html>
